@@ -71,5 +71,15 @@ public class Library {
         }
         System.out.println("Book Not Found");
     }
+    public void searchBookByTitle(String title){
+        for(Book book :books){
+            if(book.getBookTitle().equalsIgnoreCase(title)){
+                System.out.println("Book Found");
+                System.out.println(book);
+                return;
+            }
+        }
+        System.out.println("Book with that title not Found");
+    }
     
 }
