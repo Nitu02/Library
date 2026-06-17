@@ -1,53 +1,74 @@
 # Library Management System
 
-A Java-based Library Management System built to practice Object-Oriented Programming (OOP), Collections Framework, and real-world application development.
+A Java-based Library Management System developed using Object-Oriented Programming principles. The project allows management of books and users with file-based data persistence.
 
 ## Features
+
+### Book Management
 
 - Add Book
 - View Books
 - Search Book by ID
-- Delete Book by ID
+- Search Book by Title
+- Delete Book
 - Issue Book
 - Return Book
+- Count Total Books
+- Duplicate Book ID Validation
+
+### User Management
+
+- Add User
+- View Users
+- Search User by ID
+
+### File Handling
+
+- Save Books to File
+- Load Books from File
+- Persistent Storage using books.txt
 
 ## Technologies Used
 
 - Java
 - OOP
-- ArrayList
+- Collections Framework (ArrayList)
+- File Handling
 - Git
 - GitHub
 
 ## Project Structure
 
-```text
-LibraryManagementSystem
-│
+src/
+├── Main.java
 ├── Book.java
 ├── Library.java
-├── Main.java
-```
+├── User.java
+├── UserManager.java
+├── FileManager.java
 
-## Concepts Practiced
+## Concepts Implemented
 
 - Classes and Objects
 - Constructors
 - Encapsulation
 - ArrayList
-- Loops
-- Methods
-- Object-Oriented Design
+- Method Overloading
+- File Handling
+- Exception Handling
+- Object Relationships
+- Menu Driven Applications
 
 ## Future Enhancements
 
-- Search Book by Title
-- User Management
-- File Handling
-- MySQL Database
+- Issue Book to Specific User
+- Return Book from Specific User
+- Save User Data to File
+- Load User Data from File
+- MySQL Integration
 - JDBC
-- Spring Boot REST API
-- Frontend using HTML, CSS, and JavaScript
+- Spring Boot Backend
+- HTML/CSS/JavaScript Frontend
 
 ## Author
 

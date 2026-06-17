@@ -6,9 +6,29 @@ public class Library {
     private ArrayList<Book> books = new ArrayList<>();
 
     public void addBook(Book book){
+        for(Book b :books){
+            if(b.getBookId()==book.getBookId()){
+                System.out.println("Book Id already Exists!!!!!!!!!!!!!!!!!");
+                return;
+            }
+        }
         books.add(book);
         System.out.println("Book Added to Library Successfully!!!!!!!!!!");
     }
+    public void loadBook(Book book){
+        // to tell that book are loaded in existing place.
+        // System.out.println("Book Loaded Successfully");  
+        books.add(book);
+    }
+
+    // This will allow the File Manager to read the Books from Library
+    public ArrayList<Book> getBooks(){
+        return books;
+    }
+    public void totalBook(){
+        System.out.println("Total Books in Library are: "+ books.size());
+    }
+
     public void viewBooks(){
         if(books.isEmpty()){
             System.out.println("Libraray is Empty right now!!!!!");
@@ -32,7 +52,7 @@ public class Library {
         System.out.println("Book Not Found");
 
     }
-    public void deletedBookById(int BookId){
+    public void deleteBookById(int BookId){
         for(Book book:books){
             if(book.getBookId()==BookId){
                 books.remove(book);
@@ -80,6 +100,24 @@ public class Library {
             }
         }
         System.out.println("Book with that title not Found");
+    }
+    public Book findBookById(int bookId){
+        for(Book book:books){
+            if(book.getBookId()==bookId){
+                return book;
+            }
+        }
+        return null;
+    }
+
+    public void issueBookToUser(Book book, User user){
+        if(!book.isAvailable()){
+            System.out.println("Book Already Issued!!!!!!!!!");
+            return;
+        }
+        book.setAvailability(false);
+        book.setIssuedTo(user);
+        System.out.println("Book Issued To "+ user.getName());
     }
     
 }

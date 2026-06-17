@@ -7,6 +7,17 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         Library library = new Library();
+        UserManager userManager = new UserManager();
+        FileManager fileManager = new FileManager();
+        fileManager.loadBook(library);
+        userManager.addUser(new User(1,"Nitu"));
+        userManager.addUser(new User(2,"Riddhi"));
+        User user = userManager.searchUserById(1);
+        Book book= library.findBookById(101);
+        if(user != null && book != null){
+            library.issueBookToUser(book, user);
+        }
+
 
         System.out.println("========================== Library Management System ================================");
 
@@ -14,17 +25,23 @@ public class Main {
             System.out.println("\n ============= Menu ========================= \n ");
             System.out.println("1. Add Book");
             System.out.println("2. View Book");
-            System.out.println("3.  Search Book by Id");
-            System.out.println("4.  Search Book by title");
+            System.out.println("3. Search Book by Id");
+            System.out.println("4. Search Book by title");
             System.out.println("5. Issue Book");
             System.out.println("6. Return Book");
             System.out.println("7. Remove  Book");
-            System.out.println("8. Exiting!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("8. Total Books");
+            System.out.println("9. Save Book to File");
+            System.out.println("\n---------------------User Management-----------------");
+            System.out.println("10. Add User");
+            System.out.println("11. View Users");
+            System.out.println("\n--------------Exit--------------");
+            System.out.println("12. Exit");
 
             System.out.println("Enter your Choice: ");
             int choice = sc.nextInt();
 
-            if(choice ==8){
+            if(choice ==12){
                 break;
 
             }
@@ -38,9 +55,8 @@ public class Main {
                     System.out.println("Enter the Book Author Name: ");
                     String author = sc.nextLine();
 
-                    Book book = new Book(id,name,author);
-                    // book.setAvailability(true);
-                    library.addBook(book);
+                    Book book1 = new Book(id,name,author);
+                    library.addBook(book1);
 
                     break;
 
@@ -57,7 +73,7 @@ public class Main {
                     break;
                 }
                 case 4:{
-                    System.out.println("Enter the Book Title: ");
+                    System.out.println("Enter the Book Tittle: ");
                     sc.nextLine();
                     String title = sc.nextLine();
                     library.searchBookByTitle(title);
@@ -79,7 +95,30 @@ public class Main {
                 case 7:{
                     System.out.println("Enter the Id of Book that you want to Remove from Library: ");
                     int id = sc.nextInt();
-                    library.deletedBookById(id);
+                    library.deleteBookById(id);
+                    break;
+                }
+                case 8:{
+                    library.totalBook();
+                    break;
+                }
+                case 9:{
+                    fileManager.saveBooks(library.getBooks());
+                    break;
+                }
+                case 10:{
+                    System.out.println("Enter User ID: ");
+                    int userId = sc.nextInt();
+                    sc.nextLine();
+                    System.out.println("Enter User Name: ");
+                    String name = sc.nextLine();
+
+                    User user1 = new User(userId, name);
+                    userManager.addUser(user1);
+                    break;
+                }
+                case 11:{
+                    userManager.viewUsers();
                     break;
                 }
                 default:
