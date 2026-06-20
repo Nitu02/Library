@@ -119,5 +119,25 @@ public class Library {
         book.setIssuedTo(user);
         System.out.println("Book Issued To "+ user.getName());
     }
+    public void issueBookToUser(int bookId, int userId,UserManager userManager){
+        Book book = findBookById(bookId);
+        if(book == null){
+            System.out.println("Book Not Found");
+            return;
+        }
+        User user = userManager.searchUserById(userId);
+        if(user == null){
+            System.out.println("User not Found");
+            return;
+        }
+        if(!book.isAvailable()){
+            System.out.println("Book Already Issued!!!!!!!!");
+            return;
+        }
+        book.setAvailability(false);
+        book.setIssuedTo(user);
+
+        System.out.println("Book issued To: "+ user.getName());
+    }
     
 }

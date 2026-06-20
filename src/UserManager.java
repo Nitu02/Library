@@ -16,6 +16,12 @@ public class UserManager {
         users.add(user);
         System.out.println("User added Successfully!!!!!!!!!");
     }
+    public ArrayList<User> getUsers(){
+        return users;
+    }
+    public void loadUser(User user){
+        users.add(user);
+    }
     public void viewUsers(){
         if(users.isEmpty()){
             System.out.println("No users Found!");

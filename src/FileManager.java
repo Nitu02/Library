@@ -14,7 +14,8 @@ public class FileManager {
                     book.getBookId() + "," +
                     book.getBookTitle() + "," +
                     book.getAuthor() + "," +
-                    book.isAvailable()
+                    book.isAvailable()+ "," +
+                    (book.getIssuedTo() == null ? "null" :book.getIssuedTo().getUserId())
                 );
                 writer.newLine();
             }
@@ -26,8 +27,19 @@ public class FileManager {
         }
 
     }
+    public void saveUsers(ArrayList<User> users){
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter("users.txt"))){
+            for(User user: users){
+                writer.write(user.getUserId() + "," + user.getName());
+                writer.newLine();
+            }
+            System.out.println("User saved successfully!!!!!!!");
+        }catch(IOException e){
+            System.out.println("Error saving users: "+ e.getMessage());
+        }
+    }
     //because load book must be added back to its existing place.
-    public void loadBook(Library library){
+    public void loadBooks(Library library){
         try(BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))){
             String line;
             while((line = reader.readLine())!=null){
@@ -37,6 +49,8 @@ public class FileManager {
                 String title = data[1];
                 String author = data[2];
                 boolean available = Boolean.parseBoolean(data[3]);
+                String issuedUserId = data[4];
+                System.out.println("issued User Id = "+ issuedUserId);
 
                 Book book = new Book(bookId, title, author);
                 book.setAvailability(available);
@@ -46,6 +60,23 @@ public class FileManager {
             System.out.println("Error loading books: "+e.getMessage());
         }
 
+    }
+    public void loadUsers( UserManager userManager){
+        try(BufferedReader reader = new BufferedReader(new FileReader("users.txt"))){
+            String line;
+            while((line =reader.readLine())!=null){
+                String[] data = line.split(",");
+                int userId =Integer.parseInt(data[0]);
+                String name = data[1];
+
+                User user = new User(userId, name);
+                userManager.loadUser(user);
+
+            }
+
+        }catch(IOException e){
+            System.out.println("Error in loading Users "+ e.getMessage());
+        }
     }
     
 }

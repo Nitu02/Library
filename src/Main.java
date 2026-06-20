@@ -9,14 +9,8 @@ public class Main {
         Library library = new Library();
         UserManager userManager = new UserManager();
         FileManager fileManager = new FileManager();
-        fileManager.loadBook(library);
-        userManager.addUser(new User(1,"Nitu"));
-        userManager.addUser(new User(2,"Riddhi"));
-        User user = userManager.searchUserById(1);
-        Book book= library.findBookById(101);
-        if(user != null && book != null){
-            library.issueBookToUser(book, user);
-        }
+        fileManager.loadBooks(library);
+        fileManager.loadUsers(userManager);
 
 
         System.out.println("========================== Library Management System ================================");
@@ -35,13 +29,15 @@ public class Main {
             System.out.println("\n---------------------User Management-----------------");
             System.out.println("10. Add User");
             System.out.println("11. View Users");
+            System.out.println("12. Search User by Id");
+            System.out.println("13. Save User to File");
             System.out.println("\n--------------Exit--------------");
-            System.out.println("12. Exit");
+            System.out.println("14. Exit");
 
             System.out.println("Enter your Choice: ");
             int choice = sc.nextInt();
 
-            if(choice ==12){
+            if(choice ==14){
                 break;
 
             }
@@ -80,9 +76,13 @@ public class Main {
                     break;
                 }
                 case 5:{
-                    System.out.println("Enter the Id of Book You want to Isssue: ");
-                    int id = sc.nextInt();
-                    library.issueBook(id);
+                    System.out.println("Enter Book Id: ");
+                    int Bookid = sc.nextInt();
+                    System.out.println("Enter the User Id: ");
+                    int userId = sc.nextInt();
+
+                    library.issueBookToUser(Bookid, userId, userManager);
+                    
                     break;
 
                 }
@@ -119,6 +119,16 @@ public class Main {
                 }
                 case 11:{
                     userManager.viewUsers();
+                    break;
+                }
+                case 12:{
+                    System.out.println("Enter the Id of User you want to Search: ");
+                    int userId= sc.nextInt();
+                    System.out.println(userManager.searchUserById(userId));
+                    break;
+                }
+                case 13:{
+                    fileManager.saveUsers(userManager.getUsers());
                     break;
                 }
                 default:

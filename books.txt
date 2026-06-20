@@ -1,2 +1,2 @@
-101,Java,Martin,true
-102,Python,Min,true
+101,Java,Martin,true,null
+102,Python,Min,false,2
