@@ -78,18 +78,24 @@ public class Library {
         }
         System.out.println("Book Not Found");
     }
-    public void returnBook(int BookId){
-        for(Book book:books){
-            if(book.isAvailable()==false){
-                book.setAvailability(true);
-                System.out.println("Book Return Successfully!!!!!!!!!!!!!!!!");
-            }
-            else{
-                System.out.println("Book was not Issued.");
-            }
+    public void returnBook(int bookId){
+
+        Book book = findBookById(bookId);
+
+        if(book == null){
+            System.out.println("Book Not Found");
             return;
         }
-        System.out.println("Book Not Found");
+
+        if(book.isAvailable()){
+            System.out.println("Book was not issued.");
+            return;
+        }
+
+        book.setAvailability(true);
+        book.setIssuedTo(null);
+
+        System.out.println("Book Returned Successfully!");
     }
     public void searchBookByTitle(String title){
         for(Book book :books){
@@ -138,6 +144,30 @@ public class Library {
         book.setIssuedTo(user);
 
         System.out.println("Book issued To: "+ user.getName());
+    }
+    public void viewAvailableBooks(){
+        boolean found = false;
+        for(Book book : books){
+            if(book.isAvailable()){
+                System.out.println("Book ID: "+ book.getBookId() + "\nBook Name: "+ book.getBookTitle() + "\nBook Author: "+ book.getAuthor());
+                found = true;
+            }
+        }
+        if(!found){
+            System.out.println("No Books Available");
+        }
+    }
+    public void issuedBooks(){
+        boolean issue = false;
+        for(Book book: books){
+            if(!book.isAvailable()){
+                System.out.println("Book ID: "+ book.getBookId() + "\nBook Name: "+ book.getBookTitle() + " \nBook Author: "+ book.getAuthor());
+                issue =true;
+            }
+        }
+        if(!issue){
+            System.out.println("No Book Issued");
+        }
     }
     
 }

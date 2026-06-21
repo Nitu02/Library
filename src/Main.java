@@ -9,14 +9,16 @@ public class Main {
         Library library = new Library();
         UserManager userManager = new UserManager();
         FileManager fileManager = new FileManager();
-        fileManager.loadBooks(library);
         fileManager.loadUsers(userManager);
+        fileManager.loadBooks(library,userManager);
+        
 
 
         System.out.println("========================== Library Management System ================================");
 
         while(true){
-            System.out.println("\n ============= Menu ========================= \n ");
+            System.out.println("\n ============= Menu =========================  ");
+            System.out.println("\n ---------------Book Management---------------------");
             System.out.println("1. Add Book");
             System.out.println("2. View Book");
             System.out.println("3. Search Book by Id");
@@ -31,13 +33,20 @@ public class Main {
             System.out.println("11. View Users");
             System.out.println("12. Search User by Id");
             System.out.println("13. Save User to File");
+            System.out.println("\n-----------------------Reports---------------------");
+            System.out.println("14. View Available Books");
+            System.out.println("15. View Issued Books");
             System.out.println("\n--------------Exit--------------");
-            System.out.println("14. Exit");
+            System.out.println("16. Exit");
 
             System.out.println("Enter your Choice: ");
             int choice = sc.nextInt();
 
-            if(choice ==14){
+            if(choice ==16){
+                fileManager.saveBooks(library.getBooks());
+                fileManager.saveUsers(userManager.getUsers());
+
+                System.out.println("Data Saved Successfully!!!");;
                 break;
 
             }
@@ -124,11 +133,24 @@ public class Main {
                 case 12:{
                     System.out.println("Enter the Id of User you want to Search: ");
                     int userId= sc.nextInt();
-                    System.out.println(userManager.searchUserById(userId));
+                    User user = userManager.searchUserById(userId);
+                    if(user != null){
+                        System.out.println(user);
+                    }else{
+                        System.out.println("User not Found");
+                    }
                     break;
                 }
                 case 13:{
                     fileManager.saveUsers(userManager.getUsers());
+                    break;
+                }
+                case 14:{
+                    library.viewAvailableBooks();
+                    break;
+                }
+                case 15:{
+                    library.issuedBooks();
                     break;
                 }
                 default:

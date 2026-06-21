@@ -39,7 +39,7 @@ public class FileManager {
         }
     }
     //because load book must be added back to its existing place.
-    public void loadBooks(Library library){
+    public void loadBooks(Library library,UserManager userManager){
         try(BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))){
             String line;
             while((line = reader.readLine())!=null){
@@ -50,10 +50,18 @@ public class FileManager {
                 String author = data[2];
                 boolean available = Boolean.parseBoolean(data[3]);
                 String issuedUserId = data[4];
-                System.out.println("issued User Id = "+ issuedUserId);
 
                 Book book = new Book(bookId, title, author);
                 book.setAvailability(available);
+                if(!issuedUserId.equals("null")){
+                    int userId = Integer.parseInt(issuedUserId);
+
+                    User user = userManager.searchUserById(userId);
+
+                    if(user!=null){
+                        book.setIssuedTo(user);
+                    }
+                }
                 library.loadBook(book);
             }
         }catch(IOException e){
